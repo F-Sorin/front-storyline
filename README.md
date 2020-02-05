@@ -86,3 +86,7 @@ https://reacttraining.com/react-router/
 #### Axios
 
 https://alligator.io/react/axios-react/
+
+#### CKEditor
+
+https://ckeditor.com/
