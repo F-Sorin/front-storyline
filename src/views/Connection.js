@@ -1,4 +1,5 @@
 import React from "react";
+import {connect} from "react-redux";
 
 function Connection() {
     return(
@@ -8,4 +9,10 @@ function Connection() {
     )
 }
 
-export default Connection;
+const mapStateToProps = (state) => {
+    return {
+        login : state.login
+    }
+};
+
+export default connect(mapStateToProps)(Connection);
