@@ -1,15 +1,17 @@
-function login(state, action) {
+import * as types from "../constants/userTypes"
+
+function login(state= false, action) {
 
     let nextState;
 
     switch (action.type) {
-        case 'LOG_IN':
+        case types.LOG_IN:
             nextState = {
                 ...state,
                 login: action.value
             };
             return nextState;
-        case 'LOG_OUT':
+        case types.LOG_OUT:
             nextState = {
                 ...state,
                 login: action.value

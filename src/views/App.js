@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -23,8 +23,9 @@ import Registration from "./Registration";
 import Connection from "./Connection";
 import {Switch} from "react-router";
 import Profile from "./Profile";
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import './App.css'
+import {LOG_OUT} from "../redux/constants/userTypes";
 
 const drawerWidth = 240;
 
@@ -79,7 +80,6 @@ const useStyles = makeStyles(theme => ({
     toolbar: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-end',
         padding: theme.spacing(0, 1),
         ...theme.mixins.toolbar,
     },
@@ -91,11 +91,11 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
 
-    console.log(this);
-
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+
+    const dispatch = useDispatch();
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -105,7 +105,7 @@ function App() {
         setOpen(false);
     };
 
-
+    const login = useSelector(state => state.user.login);
 
   return (
       <div className={classes.root}>
@@ -128,11 +128,22 @@ function App() {
                   >
                       <MenuIcon />
                   </IconButton>
-                  <Typography variant="h6" noWrap>
+                  <Typography variant="h6" noWrap className="navbar">
                       <Link to="/">Storyline</Link>
-                      <Link to="/registration">S'inscrire</Link>
-                      <Link to="/connection">Se connecter</Link>
-                      <Link to="/profile">Profil</Link>
+                      {login ? (
+                              <div>
+                                  <Link to="/profile">Profil</Link>
+                                  <Link to="/disconnection" onClick={() =>dispatch({ type: LOG_OUT, value: false})}>
+                                      Déconnexion
+                                  </Link>
+                              </div>
+
+                          ) : (
+                              <div className="navbar-end">
+                                  <Link to="/registration">S'inscrire</Link>
+                                  <Link to="/connection">Se connecter</Link>
+                              </div>
+                          )}
                   </Typography>
               </Toolbar>
           </AppBar>
@@ -194,14 +205,4 @@ function App() {
   );
 }
 
-// Components/FilmDetail.js
-
-//...
-
-const mapStateToProps = (state) => {
-    return {
-        login : state.login
-    }
-};
-
-export default connect(mapStateToProps)(App);
+export default App;

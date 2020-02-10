@@ -1,5 +1,4 @@
 import React from "react";
-import {connect} from "react-redux";
 
 function Profile() {
     return(
@@ -9,10 +8,4 @@ function Profile() {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        login : state.login
-    }
-};
-
-export default connect(mapStateToProps)(Profile);
+export default Profile;
