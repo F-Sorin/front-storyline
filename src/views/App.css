@@ -1,9 +1,6 @@
-.navbar {
+Toolbar {
     display: flex;
-}
-
-.navbar-end {
-
+    justify-content: space-around;
 }
 
 a:-webkit-any-link {

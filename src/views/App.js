@@ -26,6 +26,7 @@ import Profile from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
 import './App.css'
 import {LOG_OUT} from "../redux/constants/userTypes";
+import {Container} from "@material-ui/core";
 
 const drawerWidth = 240;
 
@@ -87,6 +88,9 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
+    title: {
+        flexGrow: 1
+    },
 }));
 
 function App() {
@@ -128,23 +132,31 @@ function App() {
                   >
                       <MenuIcon />
                   </IconButton>
-                  <Typography variant="h6" noWrap className="navbar">
+                  <Typography variant="h6" noWrap className={classes.title}>
                       <Link to="/">Storyline</Link>
+                  </Typography>
                       {login ? (
                               <div>
-                                  <Link to="/profile">Profil</Link>
-                                  <Link to="/disconnection" onClick={() =>dispatch({ type: LOG_OUT, value: false})}>
-                                      Déconnexion
-                                  </Link>
+                                  <Typography>
+                                      <Link to="/profile">Profil</Link>
+                                  </Typography>
+                                  <Typography>
+                                      <Link to="/disconnection" onClick={() =>dispatch({ type: LOG_OUT, value: false})}>
+                                          Déconnexion
+                                      </Link>
+                                  </Typography>
                               </div>
 
                           ) : (
-                              <div className="navbar-end">
-                                  <Link to="/registration">S'inscrire</Link>
-                                  <Link to="/connection">Se connecter</Link>
+                              <div>
+                                  <Typography>
+                                      <Link to="/registration">S'inscrire</Link>
+                                  </Typography>
+                                  <Typography>
+                                      <Link to="/connection">Se connecter</Link>
+                                  </Typography>
                               </div>
                           )}
-                  </Typography>
               </Toolbar>
           </AppBar>
           <Drawer
@@ -184,23 +196,25 @@ function App() {
                   ))}
               </List>
           </Drawer>
-          <main className={classes.content}>
-              <div className={classes.toolbar} />
-              <Switch>
-                  <Route exact path="/">
-                      <Home />
-                  </Route>
-                  <Route path="/registration">
-                      <Registration />
-                  </Route>
-                  <Route path="/connection">
-                      <Connection />
-                  </Route>
-                  <Route path="/profile">
-                      <Profile />
-                  </Route>
-              </Switch>
-          </main>
+          <Container fixed>
+              <main className={classes.content}>
+                  <div className={classes.toolbar} />
+                  <Switch>
+                      <Route exact path="/">
+                          <Home />
+                      </Route>
+                      <Route path="/registration">
+                          <Registration />
+                      </Route>
+                      <Route path="/connection">
+                          <Connection />
+                      </Route>
+                      <Route path="/profile">
+                          <Profile />
+                      </Route>
+                  </Switch>
+              </main>
+          </Container>
       </div>
   );
 }
