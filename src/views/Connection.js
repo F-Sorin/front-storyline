@@ -13,7 +13,13 @@ function Connection() {
 
     const [username, setUsername] = useState("");
 
+    const [usernameError, setUsernameError] = useState(false);
+
     const [password, setPassword] = useState("");
+
+    const [passwordError, setPasswordError] = useState(false);
+
+    const [passwordHelper, setPasswordHelper] = useState("");
 
     const dispatch = useDispatch();
 
@@ -45,7 +51,10 @@ function Connection() {
                 setRedirect(true);
             },
             (error) => {
-                console.log(error)
+                console.log(error);
+                setUsernameError(true);
+                setPasswordError(true);
+                setPasswordHelper("L'identifiant et le mot de passe ne correspondent pas")
             }
         )
 
@@ -55,9 +64,12 @@ function Connection() {
         <form noValidate autoComplete="off">
             <TextField required label="Pseudo" value={username}
                        onChange={e =>setUsername(e.target.value)}
+                       error={usernameError}
             />
             <TextField required label="Mot de passe" type="password" value={password}
                        onChange={e => setPassword(e.target.value)}
+                        error={passwordError}
+                        helperText={passwordHelper}
             />
             <Button variant="contained" color="primary" onClick={() => login()}>Connexion</Button>
         </form>
