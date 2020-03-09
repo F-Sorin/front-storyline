@@ -32,7 +32,7 @@ function Connection() {
 		};
 
 		axios.post(
-			"http://localhost:8000/api/login_check",
+			"http://localhost:8000/api/login",
 			body,
 			config
 		).then((response) => {
